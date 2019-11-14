@@ -1,9 +1,14 @@
 package com.michalpu.PokeRest.client
 
 import com.michalpu.PokeRest.domain.Pokemon
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Service
+import org.springframework.web.client.RestTemplate
 
-class PokemonClientImpl: PokemonClient {
-    override fun fetchByName(name: String): Pokemon {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+@Service
+class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
+                        @Value("\${poke.api.host}") val pokemonApiHostUrl: String): PokemonClient {
+
+    override fun fetchByName(name: String): Pokemon? =
+            pokemonApiRestTemplate.getForObject(pokemonApiHostUrl, Pokemon::class.java)
 }
