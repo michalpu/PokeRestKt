@@ -8,7 +8,5 @@ import org.springframework.stereotype.Service
 @Service
 class PokemonServiceImpl(@Autowired val pokemonClient: PokemonClient) : PokemonService{
 
-    override fun getByName(name: String): Pokemon {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getByName(name: String): Pokemon? = pokemonClient.fetchByName(name)
 }

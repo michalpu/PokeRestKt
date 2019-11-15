@@ -10,5 +10,5 @@ class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
                         @Value("\${poke.api.host}") val pokemonApiHostUrl: String): PokemonClient {
 
     override fun fetchByName(name: String): Pokemon? =
-            pokemonApiRestTemplate.getForObject(pokemonApiHostUrl, Pokemon::class.java)
+            pokemonApiRestTemplate.getForObject("$pokemonApiHostUrl/pokemon/$name", Pokemon::class.java)
 }
