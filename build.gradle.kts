@@ -23,9 +23,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.apache.httpcomponents:httpclient")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	testImplementation("org.springframework.boot:spring-boot-starter-test") {
-		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-	}
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+//	{
+//		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+//	}
 	testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
 }
 
