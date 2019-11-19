@@ -28,6 +28,7 @@ dependencies {
 //		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 //	}
 	testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
+	testImplementation("com.github.tomakehurst:wiremock-jre8:2.25.1")
 }
 
 tasks.withType<Test> {
