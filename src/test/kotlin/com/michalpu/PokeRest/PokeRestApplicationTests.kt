@@ -13,7 +13,6 @@ import org.junit.runner.RunWith
 import org.slf4j.LoggerFactory
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
-import org.springframework.http.HttpHeaders
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.web.client.RestTemplate
@@ -30,7 +29,7 @@ class PokeRestApplicationTests {
     val restTemplate = RestTemplate()
 
     @LocalServerPort
-    var port: Int = 8080
+    var port: Int = 8089
 
     @Rule
     val pokeClientRule = WireMockRule(8089)
@@ -39,10 +38,10 @@ class PokeRestApplicationTests {
         val stubbedPokemon = Pokemon(id, name, weight)
         val objectMapper = ObjectMapper()
         try {
-            pokeClientRule.stubFor(get(WireMock.urlEqualTo("pokemon/${name}"))
+            pokeClientRule.stubFor(get(WireMock.urlEqualTo("/pokemon/${name}"))
                     .willReturn(aResponse()
                             .withStatus(statusCode)
-                            .withHeader(HttpHeaders.CONTENT_TYPE)
+                            .withHeader("Content-Type", "application/json")
                             .withBody(
                                     objectMapper.writeValueAsString(stubbedPokemon)
                             )))
