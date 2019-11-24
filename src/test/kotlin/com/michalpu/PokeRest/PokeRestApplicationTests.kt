@@ -11,8 +11,10 @@ import org.junit.Rule
 import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.context.support.GenericApplicationContext
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.web.client.RestTemplate
@@ -26,19 +28,24 @@ class PokeRestApplicationTests {
         val logger = LoggerFactory.getLogger(PokeRestApplicationTests::class.java)
     }
 
+
     val restTemplate = RestTemplate()
 
+    @Autowired
+    lateinit var context: GenericApplicationContext
+
+
     @LocalServerPort
-    var port: Int = 8089
+    var port : Int = 0
 
     @Rule
-    val pokeClientRule = WireMockRule(8089)
+    val pokeClientRule = WireMockRule(port)
 
     fun stubPokeClient(statusCode: Int, id: Long, name: String, weight: Int) {
         val stubbedPokemon = Pokemon(id, name, weight)
         val objectMapper = ObjectMapper()
         try {
-            pokeClientRule.stubFor(get(WireMock.urlEqualTo("/pokemon/${name}"))
+            pokeClientRule.stubFor(get(WireMock.urlEqualTo(localUrl("/pokemon/${name}")))
                     .willReturn(aResponse()
                             .withStatus(statusCode)
                             .withHeader("Content-Type", "application/json")
@@ -49,11 +56,17 @@ class PokeRestApplicationTests {
             logger.error(e.originalMessage, e)
         }
 
-
     }
 
     @Test
     fun contextLoads() {
+        assert(::context.isInitialized)
+    }
+
+    @Test
+    fun `web application port is assigned`(){
+        logger.info("port = $port")
+        assert(port != 0)
     }
 
     fun localUrl(path: String) = "http://localhost:" + port + path
