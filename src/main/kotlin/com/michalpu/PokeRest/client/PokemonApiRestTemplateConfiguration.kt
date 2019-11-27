@@ -1,4 +1,4 @@
-package com.michalpu.PokeRest.pokemon
+package com.michalpu.PokeRest.client
 
 import org.apache.http.impl.client.HttpClientBuilder
 import org.springframework.beans.factory.annotation.Value

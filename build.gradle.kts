@@ -23,12 +23,15 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.apache.httpcomponents:httpclient")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("io.vavr:vavr:0.10.2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 //	{
 //		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 //	}
 	testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
 	testImplementation("com.github.tomakehurst:wiremock-jre8:2.25.1")
+	testImplementation("org.spockframework:spock-core:1.3-groovy-2.5")
+	testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
 }
 
 tasks.withType<Test> {
