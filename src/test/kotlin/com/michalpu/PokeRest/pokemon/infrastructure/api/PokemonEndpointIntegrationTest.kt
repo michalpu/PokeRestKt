@@ -1,7 +1,7 @@
-package com.michalpu.PokeRest.integration
+package com.michalpu.PokeRest.pokemon.infrastructure.api
 
 import com.michalpu.PokeRest.PokeRestApplicationTests
-import com.michalpu.PokeRest.domain.Pokemon
+import com.michalpu.PokeRest.client.Pokemon
 import junit.framework.Assert.assertNotNull
 import org.junit.Ignore
 import org.junit.jupiter.api.Test
@@ -22,7 +22,7 @@ class PokemonEndpointIntegrationTest : PokeRestApplicationTests() {
     @Test
     fun whenCalledProperly_shouldReturnPokemonn(){
         //given
-        stubPokeClient(200, 1, "pikachu", 25)
+        stubPokeClient(200, 25, "pikachu", 60)
 
         //when
         val result = testRestTemplate.getForEntity("http://localhost:8080/pokemon/pikachu", Pokemon::class.java)
@@ -30,7 +30,7 @@ class PokemonEndpointIntegrationTest : PokeRestApplicationTests() {
         //then
         assertNotNull(result)
         assert(result?.statusCode == HttpStatus.OK)
-        assert(result?.body == Pokemon(1, "pikachu", 25))
+        assert(result?.body == Pokemon(25, "pikachu", 60))
     }
 
     @Ignore

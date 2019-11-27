@@ -6,7 +6,7 @@ import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.junit.WireMockRule
-import com.michalpu.PokeRest.domain.Pokemon
+import com.michalpu.PokeRest.client.Pokemon
 import org.junit.Rule
 import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith

@@ -1,14 +1,14 @@
-package com.michalpu.PokeRest.controller
+package com.michalpu.PokeRest.pokemon.infrastructure.api
 
-import com.michalpu.PokeRest.service.PokemonService
+import com.michalpu.PokeRest.client.PokemonClient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/pokemon")
-class PokemonController (@Autowired val pokemonService : PokemonService) {
+class PokemonController (@Autowired val pokemonClient: PokemonClient) {
 
     @GetMapping("/{name}")
     fun getByName(@PathVariable name: String) =
-            pokemonService.getByName(name)
+            pokemonClient.getByName(name)
 }

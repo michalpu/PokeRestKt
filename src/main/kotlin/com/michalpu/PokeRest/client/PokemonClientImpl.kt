@@ -1,6 +1,5 @@
 package com.michalpu.PokeRest.client
 
-import com.michalpu.PokeRest.domain.Pokemon
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestOperations
@@ -9,7 +8,7 @@ import org.springframework.web.client.RestOperations
 class PokemonClientImpl(val pokemonApiRestTemplate: RestOperations,
                         @Value("\${poke.api.host}") val pokemonApiHostUrl: String): PokemonClient {
 
-    override fun fetchByName(name: String): Pokemon? {
+    override fun getByName(name: String): Pokemon? {
         val response =
                 pokemonApiRestTemplate.getForEntity("$pokemonApiHostUrl/pokemon/$name", Pokemon::class.java)
 

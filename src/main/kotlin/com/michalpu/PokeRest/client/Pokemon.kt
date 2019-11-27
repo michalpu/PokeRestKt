@@ -1,4 +1,4 @@
-package com.michalpu.PokeRest.domain
+package com.michalpu.PokeRest.client
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
