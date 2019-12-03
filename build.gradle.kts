@@ -5,6 +5,8 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.8.RELEASE"
 	kotlin("jvm") version "1.3.50"
 	kotlin("plugin.spring") version "1.3.50"
+	id("groovy")
+	jacoco
 }
 
 group = "com.michalpu"
@@ -34,6 +36,10 @@ dependencies {
 	testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
 }
 
+tasks.test {
+	useJUnitPlatform()
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
@@ -43,4 +49,18 @@ tasks.withType<KotlinCompile> {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "1.8"
 	}
+}
+
+tasks.jacocoTestReport {
+	reports {
+		xml.isEnabled = true
+		xml.destination  = File("$buildDir/reports/jacoco/report.xml")
+		csv.isEnabled = false
+		html.isEnabled = false
+	}
+	executionData(File("build/jacoco/test.exec"))
+}
+
+tasks.test {
+	finalizedBy(tasks.jacocoTestReport)
 }

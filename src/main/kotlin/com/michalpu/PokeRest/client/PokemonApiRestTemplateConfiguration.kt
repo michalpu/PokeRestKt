@@ -25,6 +25,13 @@ class PokemonApiRestTemplateConfiguration {
                     maxConnectionPerRoute
             ))
 
+    @Bean
+    fun pokemonClient(
+            restTemplate: RestTemplate,
+            @Value("\${poke.api.host}") url: String) =
+            PokemonClientImpl(restTemplate, url)
+
+
     private fun httpFactory(connectionTimeout: Int,
                             connectionRequestTimeout: Int,
                             readTimeout: Int,
