@@ -1,6 +1,7 @@
 package com.michalpu.PokeRest.client
 
 import org.apache.http.impl.client.HttpClientBuilder
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -10,7 +11,7 @@ import org.springframework.web.client.RestTemplate
 @Configuration
 class PokemonApiRestTemplateConfiguration {
 
-    @Bean
+    @Bean("pokemonRestTemplate")
     fun getPokemonApiRestTemplate(
             @Value("\${poke.client.connectionTimeout}") connectionTimeout: Int,
             @Value("\${poke.client.connectionRequestTimeout}") connectionRequestTimeout: Int,
@@ -27,7 +28,7 @@ class PokemonApiRestTemplateConfiguration {
 
     @Bean
     fun pokemonClient(
-            restTemplate: RestTemplate,
+            @Qualifier("pokemonRestTemplate") restTemplate: RestTemplate,
             @Value("\${poke.api.host}") url: String) =
             PokemonClientImpl(restTemplate, url)
 

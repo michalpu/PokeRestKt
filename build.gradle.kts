@@ -31,7 +31,7 @@ dependencies {
 //		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 //	}
 	testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
-	testImplementation("com.github.tomakehurst:wiremock-jre8:2.25.1")
+	testImplementation("com.github.tomakehurst:wiremock:2.25.0")
 	testImplementation("org.spockframework:spock-core:1.3-groovy-2.5")
 	testImplementation("org.spockframework:spock-spring:1.3-groovy-2.5")
 }
