@@ -11084,7 +11084,7 @@
       "back_default" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/4.png",
       "front_default" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
    },
-   "weight" : 85,
+   "weight" : 99,
    "forms" : [
       {
          "url" : "https://pokeapi.co/api/v2/pokemon-form/4/",
