@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus
 
 class PokemonEndpointTest extends BaseIntegrationTest{
 
+    def setup(){
+        stubPokemonClient(200, new Pokemon(4, "charmander", 85))
+    }
 
     void 'should return status 200 [OK]'(){
-
         when:
         def pokemonResponse = restTemplate.getForEntity(localUrl("/pokemon/charmander"), Pokemon.class)
 
