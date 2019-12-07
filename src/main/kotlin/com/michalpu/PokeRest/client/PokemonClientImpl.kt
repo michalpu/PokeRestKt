@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate
 class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
                         val url: String) : PokemonClient {
 
-    companion object{
+    companion object {
         private const val PATH = "pokemon"
     }
 
@@ -20,6 +20,16 @@ class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
 
     }
 
+    override fun getTypeByName(name: String): Type {
+        return Try.of {
+            pokemonApiRestTemplate.getForObject("https://pokeapi.co/api/v2/type/$name", Type::class.java)!! }
+                .onFailure(HttpServerErrorException::class.java) { throw PokemonClientException(it) }
+                .map { mapToDomain(it) }
+                .get()
+    }
+
     private fun mapToDomain(response: Pokemon) = Pokemon(response.id, response.name, response.weight)
 
-    }
+    private fun mapToDomain(response: Type) = Type(response.id, response.name, response.typeRelations)
+
+}

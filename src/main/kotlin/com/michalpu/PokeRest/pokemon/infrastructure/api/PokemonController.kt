@@ -17,4 +17,6 @@ class PokemonController (@Autowired val pokemonClient: PokemonClient) {
         return ResponseEntity.ok(response)
     }
 
+
+
 }

@@ -50,6 +50,7 @@ class PokemonEndpointTest extends BaseIntegrationTest{
     }
 
     void 'should return evolution path'() {
+        //pokemon species
         when:
         def evolutionPath = restTemplate.getForObject("/evolutionPath/charmander", EvolutionPath.class)
 

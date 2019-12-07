@@ -22,4 +22,16 @@ class PokemonClientIntegrationTest extends BaseIntegrationTest{
             weight == 100
         }
     }
+
+    def 'should return fire type'(){
+        when:
+        Type type = pokeClient.getTypeByName("fire")
+
+        then:
+        with(type){
+            name.equalsIgnoreCase("fire")
+            id == 10
+        }
+
+    }
 }
