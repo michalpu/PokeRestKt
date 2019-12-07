@@ -50,7 +50,7 @@ class BaseIntegrationTest extends Specification {
 
     def stubPokemonClient(int statusCode, Pokemon pokemon) {
         try{
-            pokemonClient.stubFor(get(urlEqualTo("pokemon/$pokemon.name"))
+            pokemonClient.stubFor(get(urlEqualTo("/pokemon/$pokemon.name"))
                     .willReturn(
                             aResponse()
                                     .withStatus(statusCode)

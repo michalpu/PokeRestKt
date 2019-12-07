@@ -29,7 +29,7 @@ class PokemonApiRestTemplateConfiguration {
     @Bean
     fun pokemonClient(
             @Qualifier("pokemonRestTemplate") restTemplate: RestTemplate,
-            @Value("\${poke.api.host}") url: String) =
+            @Value("\${poke.client.host}") url: String) =
             PokemonClientImpl(restTemplate, url)
 
 
