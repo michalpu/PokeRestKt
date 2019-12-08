@@ -13,7 +13,7 @@ class PokemonClientIntegrationTest extends BaseIntegrationTest{
         stubPokemonClient(200, new Pokemon(1000, "charmander", 100))
 
         when:
-        Pokemon pokemon = pokeClient.getByName("charmander")
+        Pokemon pokemon = pokeClient.getPokemonByName("charmander")
 
         then:
         with(pokemon){
@@ -33,5 +33,16 @@ class PokemonClientIntegrationTest extends BaseIntegrationTest{
             id == 10
         }
 
+    }
+
+    def 'should return fire type for charmander'(){
+        when:
+        Type type = pokeClient.getTypesByPokemon("charmander")
+
+        then:
+        with(type){
+            name.equalsIgnoreCase("fire")
+            id == 10
+        }
     }
 }

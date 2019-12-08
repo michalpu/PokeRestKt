@@ -13,9 +13,10 @@ class PokemonController (@Autowired val pokemonClient: PokemonClient) {
 
     @GetMapping("/{name}")
     fun getByName(@PathVariable name: String) : ResponseEntity<Pokemon> {
-        val response = pokemonClient.getByName(name)
+        val response = pokemonClient.getPokemonByName(name)
         return ResponseEntity.ok(response)
     }
+
 
 
 

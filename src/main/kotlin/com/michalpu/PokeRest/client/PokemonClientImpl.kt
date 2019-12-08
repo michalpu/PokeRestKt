@@ -12,7 +12,7 @@ class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
         private const val PATH = "pokemon"
     }
 
-    override fun getByName(name: String): Pokemon {
+    override fun getPokemonByName(name: String): Pokemon {
         return Try.of { pokemonApiRestTemplate.getForObject("$url/$PATH/$name", Pokemon::class.java)!! }
                 .onFailure(HttpServerErrorException::class.java) { throw PokemonClientException(it) }
                 .map { mapToDomain(it) }
@@ -28,7 +28,7 @@ class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
                 .get()
     }
 
-    private fun mapToDomain(response: Pokemon) = Pokemon(response.id, response.name, response.weight)
+    private fun mapToDomain(response: Pokemon) = Pokemon(response.id, response.name, response.weight, response.types)
 
     private fun mapToDomain(response: Type) = Type(response.id, response.name, response.typeRelations)
 
