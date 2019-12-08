@@ -20,6 +20,10 @@ class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
 
     }
 
+    override fun getTypesOfPokemon(pokemon: Pokemon): List<Type> {
+        return pokemon.types.map { getTypeByName(it.type.name) }
+    }
+
     override fun getTypeByName(name: String): Type {
         return Try.of {
             pokemonApiRestTemplate.getForObject("https://pokeapi.co/api/v2/type/$name", Type::class.java)!! }
@@ -30,6 +34,6 @@ class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
 
     private fun mapToDomain(response: Pokemon) = Pokemon(response.id, response.name, response.weight, response.types)
 
-    private fun mapToDomain(response: Type) = Type(response.id, response.name, response.typeRelations)
+    private fun mapToDomain(response: Type) = Type(response.id, response.name, response.relations)
 
 }

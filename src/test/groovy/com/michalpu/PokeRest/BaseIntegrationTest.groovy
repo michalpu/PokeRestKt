@@ -63,6 +63,25 @@ class BaseIntegrationTest extends Specification {
         }
     }
 
+    def stubPokemonClient(int statusCode, String bodyFile = "pokemon.json") {
+        //todo replace with relative path
+        File file = new File("/Users/michalpurtak/IdeaProjects/PokeRestKt/src/test/resources/__files/pokemon/pokemon.json")
+        Pokemon pokemon = objectMapper.readValue(file, Pokemon.class)
+        try{
+            pokemonClient.stubFor(get(urlEqualTo("/pokemon/$pokemon.name"))
+                    .willReturn(
+                            aResponse()
+                                    .withStatus(statusCode)
+                                    .withBodyFile("pokemon/$bodyFile")
+                                    .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString())
+                    ))
+        } catch(JsonProcessingException e){
+            log.error(e.getMessage(), e)
+        }
+    }
+
+
+
     String localUrl(String endpoint) {
         return "http://localhost:$port$endpoint"
     }

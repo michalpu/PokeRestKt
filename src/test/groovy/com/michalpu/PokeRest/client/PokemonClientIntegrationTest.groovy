@@ -10,16 +10,16 @@ class PokemonClientIntegrationTest extends BaseIntegrationTest{
 
     def 'should return modified charmander'(){
         given:
-        stubPokemonClient(200, new Pokemon(1000, "charmander", 100))
+        stubPokemonClient(200)
 
         when:
         Pokemon pokemon = pokeClient.getPokemonByName("charmander")
 
         then:
         with(pokemon){
-            id == 1000
+            id == 4
             name.equalsIgnoreCase("charmander")
-            weight == 100
+            weight == 86
         }
     }
 
@@ -37,7 +37,7 @@ class PokemonClientIntegrationTest extends BaseIntegrationTest{
 
     def 'should return fire type for charmander'(){
         when:
-        Type type = pokeClient.getTypesByPokemon("charmander")
+        Type type = pokeClient.getTypesOfPokemon("charmander")
 
         then:
         with(type){

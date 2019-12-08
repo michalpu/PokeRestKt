@@ -2,6 +2,7 @@ package com.michalpu.PokeRest.pokemon.infrastructure.api
 
 import com.michalpu.PokeRest.BaseIntegrationTest
 import com.michalpu.PokeRest.client.Pokemon
+import com.michalpu.PokeRest.client.Type
 import org.springframework.http.HttpStatus
 
 class PokemonEndpointTest extends BaseIntegrationTest{
@@ -39,7 +40,7 @@ class PokemonEndpointTest extends BaseIntegrationTest{
     void 'should return types vulnerable to pokemons type'  () {
 
         when:
-        def typeRelations = restTemplate.getForObject(localUrl("/pokemon/charmander/relations"),
+        def typeRelations = restTemplate.getForObject(localUrl("/pokemon/charmander/type-relations"),
                                                                 TypeRelations.class)
         then:
         with(typeRelations){

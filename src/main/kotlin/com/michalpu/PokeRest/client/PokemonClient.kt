@@ -6,4 +6,6 @@ interface PokemonClient {
 
     fun getTypeByName(name: String): Type
 
+    fun getTypesOfPokemon(pokemon: Pokemon) : List<Type>
+
 }

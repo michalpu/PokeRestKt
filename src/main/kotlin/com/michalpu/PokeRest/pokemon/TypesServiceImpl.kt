@@ -1,21 +1,25 @@
 package com.michalpu.PokeRest.pokemon
 
 import com.michalpu.PokeRest.client.Type
+import org.springframework.stereotype.Service
 
-class TypesServiceImpl() : TypesService {
+@Service
+class TypesServiceImpl : TypesService {
 
-    override fun getTypeRelationsFromTypes(types: List<Type>): TypeRelations {
-        var noDamageTo: MutableSet<String> = HashSet()
-        var halfDamageTo: MutableSet<String> = HashSet()
-        var doubleDamageTo: MutableSet<String> = HashSet()
-        var noDamageFrom: MutableSet<String> = HashSet()
-        var halfDamageFrom: MutableSet<String> = HashSet()
-        var doubleDamageFrom: MutableSet<String> = HashSet()
+    override fun getTypeRelationsForPokemonTypes(types: List<Type>): TypeRelations {
+
+        val typeRelationsBuilder = TypeRelations.Builder()
 
         for (type in types){
-            noDamageTo.addAll(type.typeRelations.noDamageTo.map { it.name })
-            halfDamageTo.addAll(type.typeRelations.halfDamageTo.map { it.name })
-            doubleDamageTo.addAll(type.typeRelations)
+            typeRelationsBuilder.appendNoDamageTo(type.relations.noDamageTo.map { it.name }.toSet())
+            typeRelationsBuilder.appendHalfDamageTo(type.relations.halfDamageTo.map { it.name }.toSet())
+            typeRelationsBuilder.appendDoubleDamageTo(type.relations.doubleDamageTo.map { it.name }.toSet())
+            typeRelationsBuilder.appendNoDamageFrom(type.relations.noDamageFrom.map { it.name }.toSet())
+            typeRelationsBuilder.appendHalfDamageFrom(type.relations.halfDamageFrom.map { it.name }.toSet())
+            typeRelationsBuilder.appendDoubleDamageFrom(type.relations.doubleDamageFrom.map { it.name }.toSet())
+
         }
+
+        return typeRelationsBuilder.build()
     }
 }

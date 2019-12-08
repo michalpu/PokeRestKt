@@ -4,6 +4,6 @@ import com.michalpu.PokeRest.client.Type
 
 interface TypesService {
 
-    fun getTypeRelationsFromTypes(types: List<Type>): TypeRelations
+    fun getTypeRelationsForPokemonTypes(types: List<Type>): TypeRelations
 
 }
