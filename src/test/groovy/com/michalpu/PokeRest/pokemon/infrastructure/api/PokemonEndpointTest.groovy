@@ -2,13 +2,15 @@ package com.michalpu.PokeRest.pokemon.infrastructure.api
 
 import com.michalpu.PokeRest.BaseIntegrationTest
 import com.michalpu.PokeRest.client.Pokemon
-import com.michalpu.PokeRest.client.Type
+import org.junit.Ignore
 import org.springframework.http.HttpStatus
+import com.michalpu.PokeRest.pokemon.TypeRelations
 
 class PokemonEndpointTest extends BaseIntegrationTest{
 
     def setup(){
-        stubPokemonClient(200, new Pokemon(4, "charmander", 85))
+        stubPokemonResponse(200)
+        stubTypeResponse(200)
     }
 
     void 'should return status 200 [OK] when calling pokemon endpoint'(){
@@ -28,14 +30,10 @@ class PokemonEndpointTest extends BaseIntegrationTest{
         with(pokemon){
             id == 4
             name.equalsIgnoreCase("charmander");
-            weight == 85
+            weight == 86
         }
     }
 
-    @Override
-    boolean equals(Object obj) {
-        return super.equals(obj)
-    }
 
     void 'should return types vulnerable to pokemons type'  () {
 
@@ -45,11 +43,15 @@ class PokemonEndpointTest extends BaseIntegrationTest{
         then:
         with(typeRelations){
             noDamageTo.isEmpty()
-            halfDamageTo.contains("water")
-            doubleDamageTo.contains("bug")
+            noDamageFrom.isEmpty()
+            doubleDamageFrom.containsAll(Arrays.asList("ground", "rock", "water"))
+            doubleDamageTo.containsAll(Arrays.asList("bug", "steel", "grass", "ice"))
+            halfDamageFrom.containsAll(Arrays.asList("bug", "steel", "grass", "ice", "fairy"))
+            halfDamageTo.containsAll(Arrays.asList("rock", "water", "fire", "dragon"))
         }
     }
 
+    @Ignore
     void 'should return evolution path'() {
         //pokemon species
         when:

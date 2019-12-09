@@ -47,15 +47,13 @@ class BaseIntegrationTest extends Specification {
         objectMapper.registerModule(new KotlinModule())
     }
 
-    def stubPokemonClient(int statusCode, Pokemon pokemon) {
+    def stubPokemonResponse(int statusCode, String bodyFile = "pokemon.json", String pokemonName = "charmander") {
         try{
-            pokemonClient.stubFor(get(urlEqualTo("/pokemon/$pokemon.name"))
+            pokemonClient.stubFor(get(urlEqualTo("/pokemon/$pokemonName"))
                     .willReturn(
                             aResponse()
                                     .withStatus(statusCode)
-                                    .withBody(
-                                            objectMapper.writeValueAsString(pokemon)
-                                    )
+                                    .withBodyFile("pokemon/$bodyFile")
                                     .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString())
                     ))
         } catch(JsonProcessingException e){
@@ -63,12 +61,9 @@ class BaseIntegrationTest extends Specification {
         }
     }
 
-    def stubPokemonClient(int statusCode, String bodyFile = "pokemon.json") {
-        //todo replace with relative path
-        File file = new File("/Users/michalpurtak/IdeaProjects/PokeRestKt/src/test/resources/__files/pokemon/pokemon.json")
-        Pokemon pokemon = objectMapper.readValue(file, Pokemon.class)
+    def stubTypeResponse(int statusCode, String bodyFile = "fire_type.json", String typeName = "fire") {
         try{
-            pokemonClient.stubFor(get(urlEqualTo("/pokemon/$pokemon.name"))
+            pokemonClient.stubFor(get(urlEqualTo("/type/$typeName"))
                     .willReturn(
                             aResponse()
                                     .withStatus(statusCode)

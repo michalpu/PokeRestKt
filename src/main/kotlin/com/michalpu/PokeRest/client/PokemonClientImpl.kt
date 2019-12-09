@@ -9,11 +9,12 @@ class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
                         val url: String) : PokemonClient {
 
     companion object {
-        private const val PATH = "pokemon"
+        private const val POKEMON_PATH = "pokemon"
+        private const val TYPE_PATH = "type"
     }
 
     override fun getPokemonByName(name: String): Pokemon {
-        return Try.of { pokemonApiRestTemplate.getForObject("$url/$PATH/$name", Pokemon::class.java)!! }
+        return Try.of { pokemonApiRestTemplate.getForObject("$url/$POKEMON_PATH/$name", Pokemon::class.java)!! }
                 .onFailure(HttpServerErrorException::class.java) { throw PokemonClientException(it) }
                 .map { mapToDomain(it) }
                 .get()
@@ -26,7 +27,7 @@ class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
 
     override fun getTypeByName(name: String): Type {
         return Try.of {
-            pokemonApiRestTemplate.getForObject("https://pokeapi.co/api/v2/type/$name", Type::class.java)!! }
+            pokemonApiRestTemplate.getForObject("$url/$TYPE_PATH/$name", Type::class.java)!! }
                 .onFailure(HttpServerErrorException::class.java) { throw PokemonClientException(it) }
                 .map { mapToDomain(it) }
                 .get()

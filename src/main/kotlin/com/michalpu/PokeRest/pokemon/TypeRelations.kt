@@ -15,7 +15,7 @@ class TypeRelations private constructor(val noDamageTo: Set<String>?,
                    var doubleDamageFrom: MutableSet<String>? = null){
 
         fun build() = TypeRelations(noDamageTo, halfDamageTo, doubleDamageTo,
-                                    noDamageFrom, halfDamageFrom, doubleDamageTo)
+                                    noDamageFrom, halfDamageFrom, doubleDamageFrom)
 
         fun appendNoDamageTo(types: Set<String>) {
             if(noDamageTo == null){
