@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate
 class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
                         val url: String) : PokemonClient {
 
-    companion object{
+    companion object {
         private const val PATH = "pokemon"
     }
 
@@ -22,4 +22,4 @@ class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
 
     private fun mapToDomain(response: Pokemon) = Pokemon(response.id, response.name, response.weight)
 
-    }
+}

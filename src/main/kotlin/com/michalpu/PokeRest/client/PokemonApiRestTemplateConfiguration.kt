@@ -37,7 +37,7 @@ class PokemonApiRestTemplateConfiguration {
                             connectionRequestTimeout: Int,
                             readTimeout: Int,
                             maxConnectionTotal: Int,
-                            maxConnectionPerRoute: Int): HttpComponentsClientHttpRequestFactory{
+                            maxConnectionPerRoute: Int): HttpComponentsClientHttpRequestFactory {
 
         val requestConfig = HttpComponentsClientHttpRequestFactory()
         requestConfig.setConnectTimeout(connectionTimeout)
@@ -48,7 +48,7 @@ class PokemonApiRestTemplateConfiguration {
         return requestConfig
     }
 
-    private fun getConfiguredHttpClient (maxConnectionTotal: Int, maxConnectionPerRoute: Int) =
+    private fun getConfiguredHttpClient(maxConnectionTotal: Int, maxConnectionPerRoute: Int) =
             HttpClientBuilder.create()
                     .setMaxConnTotal(maxConnectionTotal)
                     .setMaxConnPerRoute(maxConnectionPerRoute)

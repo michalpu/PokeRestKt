@@ -18,9 +18,7 @@ import org.springframework.web.client.RestTemplate
 import spock.lang.Shared
 import spock.lang.Specification
 
-import static com.github.tomakehurst.wiremock.client.WireMock.get
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import static com.github.tomakehurst.wiremock.client.WireMock.*
 
 @Slf4j
 @ContextConfiguration
@@ -48,7 +46,7 @@ class BaseIntegrationTest extends Specification {
     }
 
     def stubPokemonClient(int statusCode, Pokemon pokemon) {
-        try{
+        try {
             pokemonClient.stubFor(get(urlEqualTo("/pokemon/$pokemon.name"))
                     .willReturn(
                             aResponse()
@@ -58,7 +56,7 @@ class BaseIntegrationTest extends Specification {
                                     )
                                     .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString())
                     ))
-        } catch(JsonProcessingException e){
+        } catch (JsonProcessingException e) {
             log.error(e.getMessage(), e)
         }
     }

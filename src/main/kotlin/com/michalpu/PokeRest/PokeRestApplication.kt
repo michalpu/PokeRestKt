@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class PokeRestApplication
 
 fun main(args: Array<String>) {
-	runApplication<PokeRestApplication>(*args)
+    runApplication<PokeRestApplication>(*args)
 }
