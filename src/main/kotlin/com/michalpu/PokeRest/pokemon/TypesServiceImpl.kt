@@ -11,12 +11,13 @@ class TypesServiceImpl : TypesService {
         val typeRelationsBuilder = TypeRelations.Builder()
 
         for (type in types){
-            typeRelationsBuilder.appendNoDamageTo(type.relations.noDamageTo.map { it.name }.toSet())
-            typeRelationsBuilder.appendHalfDamageTo(type.relations.halfDamageTo.map { it.name }.toSet())
-            typeRelationsBuilder.appendDoubleDamageTo(type.relations.doubleDamageTo.map { it.name }.toSet())
-            typeRelationsBuilder.appendNoDamageFrom(type.relations.noDamageFrom.map { it.name }.toSet())
-            typeRelationsBuilder.appendHalfDamageFrom(type.relations.halfDamageFrom.map { it.name }.toSet())
-            typeRelationsBuilder.appendDoubleDamageFrom(type.relations.doubleDamageFrom.map { it.name }.toSet())
+            typeRelationsBuilder
+                    .appendNoDamageTo(type.relations.noDamageTo.map { it.name }.toSet())
+                    .appendHalfDamageTo(type.relations.halfDamageTo.map { it.name }.toSet())
+                    .appendDoubleDamageTo(type.relations.doubleDamageTo.map { it.name }.toSet())
+                    .appendNoDamageFrom(type.relations.noDamageFrom.map { it.name }.toSet())
+                    .appendHalfDamageFrom(type.relations.halfDamageFrom.map { it.name }.toSet())
+                    .appendDoubleDamageFrom(type.relations.doubleDamageFrom.map { it.name }.toSet())
 
         }
 
