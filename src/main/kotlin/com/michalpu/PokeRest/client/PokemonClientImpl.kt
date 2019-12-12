@@ -3,6 +3,7 @@ package com.michalpu.PokeRest.client
 import io.vavr.control.Try
 import org.springframework.web.client.HttpServerErrorException
 import org.springframework.web.client.RestTemplate
+import java.lang.NullPointerException
 
 
 class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
@@ -16,7 +17,7 @@ class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
         return Try.of { pokemonApiRestTemplate.getForObject("$url/$PATH/$name", Pokemon::class.java)!! }
                 .onFailure(HttpServerErrorException::class.java) { throw PokemonClientException(it) }
                 .map { mapToDomain(it) }
-                .get()
+                .get() ?: throw PokemonClientException(KotlinNullPointerException())
 
     }
 
