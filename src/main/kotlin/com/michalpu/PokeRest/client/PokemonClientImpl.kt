@@ -13,11 +13,12 @@ class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
         private const val TYPE_PATH = "type"
     }
 
+
     override fun getPokemonByName(name: String): Pokemon {
-        return Try.of { pokemonApiRestTemplate.getForObject("$url/$POKEMON_PATH/$name", Pokemon::class.java)!! }
+        return Try.of { pokemonApiRestTemplate.getForObject("$url/$POKEMON_PATH/$name", Pokemon::class.java) }
                 .onFailure(HttpServerErrorException::class.java) { throw PokemonClientException(it) }
                 .map { mapToDomain(it) }
-                .get()
+                .get() ?: throw PokemonClientException(KotlinNullPointerException())
 
     }
 
@@ -33,8 +34,11 @@ class PokemonClientImpl(val pokemonApiRestTemplate: RestTemplate,
                 .get()
     }
 
-    private fun mapToDomain(response: Pokemon) = Pokemon(response.id, response.name, response.weight, response.types)
+    private fun mapToDomain(response: Pokemon?)= response?.let{
+        Pokemon(it.id, it.name, it.weight, it.types)
+    }
 
     private fun mapToDomain(response: Type) = Type(response.id, response.name, response.relations)
+
 
 }

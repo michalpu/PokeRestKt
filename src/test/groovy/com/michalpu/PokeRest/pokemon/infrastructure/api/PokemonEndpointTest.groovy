@@ -6,7 +6,7 @@ import org.junit.Ignore
 import org.springframework.http.HttpStatus
 import com.michalpu.PokeRest.pokemon.TypeRelations
 
-class PokemonEndpointTest extends BaseIntegrationTest{
+class PokemonEndpointTest extends BaseIntegrationTest {
 
     def setup(){
         stubPokemonResponse(200)
@@ -15,19 +15,19 @@ class PokemonEndpointTest extends BaseIntegrationTest{
 
     void 'should return status 200 [OK] when calling pokemon endpoint'(){
         when:
-        def pokemonResponse = restTemplate.getForEntity(localUrl("/pokemon/charmander"), Pokemon.class)
+        def pokemonResponse = restTemplate.getForEntity(localUrl("/pokemons/charmander"), Pokemon.class)
 
         then:
         pokemonResponse.statusCode == HttpStatus.OK
     }
 
-    void 'should return charmander pokemon'(){
+    void 'should return charmander pokemon'() {
 
         when:
-        def pokemon = restTemplate.getForObject(localUrl("/pokemon/charmander"), Pokemon.class)
+        def pokemon = restTemplate.getForObject(localUrl("/pokemons/charmander"), Pokemon.class)
 
         then:
-        with(pokemon){
+        with(pokemon) {
             id == 4
             name.equalsIgnoreCase("charmander");
             weight == 86
@@ -38,7 +38,7 @@ class PokemonEndpointTest extends BaseIntegrationTest{
     void 'should return types vulnerable to pokemons type'  () {
 
         when:
-        def typeRelations = restTemplate.getForObject(localUrl("/pokemon/charmander/type-relations"),
+        def typeRelations = restTemplate.getForObject(localUrl("/pokemons/charmander/type-relations"),
                                                                 TypeRelations.class)
         then:
         with(typeRelations){
@@ -51,19 +51,4 @@ class PokemonEndpointTest extends BaseIntegrationTest{
         }
     }
 
-    @Ignore
-    void 'should return evolution path'() {
-        //pokemon species
-        when:
-        def evolutionPath = restTemplate.getForObject("/evolutionPath/charmander", EvolutionPath.class)
-
-        then:
-        with(evolutionPath){
-            evolutions.size == 3
-            isBaby == true
-            evolutions.get(1).equalsIgnoreCase("charmeleon")
-            evolutions.get(2).equalsIgnoreCase("charizard")
-
-        }
-    }
 }

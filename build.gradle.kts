@@ -18,7 +18,6 @@ repositories {
 }
 
 dependencies {
-//	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -27,9 +26,6 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.vavr:vavr:0.10.2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-//	{
-//		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-//	}
 	testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
 	testImplementation("com.github.tomakehurst:wiremock:2.25.0")
 	testImplementation("org.spockframework:spock-core:1.3-groovy-2.5")

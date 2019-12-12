@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule
-import com.michalpu.PokeRest.client.Pokemon
 import groovy.util.logging.Slf4j
 import org.junit.ClassRule
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,9 +17,7 @@ import org.springframework.web.client.RestTemplate
 import spock.lang.Shared
 import spock.lang.Specification
 
-import static com.github.tomakehurst.wiremock.client.WireMock.get
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import static com.github.tomakehurst.wiremock.client.WireMock.*
 
 @Slf4j
 @ContextConfiguration
@@ -48,7 +45,7 @@ class BaseIntegrationTest extends Specification {
     }
 
     def stubPokemonResponse(int statusCode, String bodyFile = "pokemon.json", String pokemonName = "charmander") {
-        try{
+        try {
             pokemonClient.stubFor(get(urlEqualTo("/pokemon/$pokemonName"))
                     .willReturn(
                             aResponse()
@@ -56,13 +53,13 @@ class BaseIntegrationTest extends Specification {
                                     .withBodyFile("pokemon/$bodyFile")
                                     .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString())
                     ))
-        } catch(JsonProcessingException e){
+        } catch (JsonProcessingException e) {
             log.error(e.getMessage(), e)
         }
     }
 
     def stubTypeResponse(int statusCode, String bodyFile = "fire_type.json", String typeName = "fire") {
-        try{
+        try {
             pokemonClient.stubFor(get(urlEqualTo("/type/$typeName"))
                     .willReturn(
                             aResponse()
@@ -70,11 +67,10 @@ class BaseIntegrationTest extends Specification {
                                     .withBodyFile("pokemon/$bodyFile")
                                     .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString())
                     ))
-        } catch(JsonProcessingException e){
+        } catch (JsonProcessingException e) {
             log.error(e.getMessage(), e)
         }
     }
-
 
 
     String localUrl(String endpoint) {
