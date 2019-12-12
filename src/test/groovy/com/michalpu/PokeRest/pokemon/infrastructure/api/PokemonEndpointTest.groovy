@@ -12,7 +12,7 @@ class PokemonEndpointTest extends BaseIntegrationTest{
 
     void 'should return status 200 [OK]'(){
         when:
-        def pokemonResponse = restTemplate.getForEntity(localUrl("/pokemon/charmander"), Pokemon.class)
+        def pokemonResponse = restTemplate.getForEntity(localUrl("/pokemons/charmander"), Pokemon.class)
 
         then:
         pokemonResponse.statusCode == HttpStatus.OK
@@ -21,7 +21,7 @@ class PokemonEndpointTest extends BaseIntegrationTest{
     void 'should return charmander pokemon'(){
 
         when:
-        def pokemon = restTemplate.getForObject(localUrl("/pokemon/charmander"), Pokemon.class)
+        def pokemon = restTemplate.getForObject(localUrl("/pokemons/charmander"), Pokemon.class)
 
         then:
         with(pokemon){

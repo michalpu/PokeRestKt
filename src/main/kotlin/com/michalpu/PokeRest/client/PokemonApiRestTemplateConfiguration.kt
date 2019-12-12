@@ -11,8 +11,8 @@ import org.springframework.web.client.RestTemplate
 @Configuration
 class PokemonApiRestTemplateConfiguration {
 
-    @Bean("pokemonRestTemplate")
-    fun getPokemonApiRestTemplate(
+    @Bean
+    fun pokemonRestTemplate(
             @Value("\${poke.client.connectionTimeout}") connectionTimeout: Int,
             @Value("\${poke.client.connectionRequestTimeout}") connectionRequestTimeout: Int,
             @Value("\${poke.client.readTimeout}") readTimeout: Int,

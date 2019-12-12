@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/pokemon")
-class PokemonController (@Autowired val pokemonClient: PokemonClient) {
+@RequestMapping("/pokemons")
+class PokemonController (private val pokemonClient: PokemonClient) {
 
 
     @GetMapping("/{name}")
