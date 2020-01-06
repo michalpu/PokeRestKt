@@ -6,4 +6,5 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 data class Pokemon(
         val id: Long,
         val name: String,
-        val weight: Int)
+        val weight: Int,
+        val types: List<PokemonType>)
